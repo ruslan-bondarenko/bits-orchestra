@@ -4,4 +4,6 @@ export type IReview = {
  stars: number;
  date: string;
  fullName: string;
+ email?: string;
+ phone?: string;
 };

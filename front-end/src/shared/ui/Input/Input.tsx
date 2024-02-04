@@ -1,24 +1,26 @@
 "use client";
 
-import { FieldError, UseFormSetValue } from "react-hook-form";
+import { FieldError, FieldValues, UseFormSetValue } from "react-hook-form";
 import React, { FC, LegacyRef, useState, useEffect } from "react";
 import clsx from "clsx";
 import { EyeEmpty } from "@/shared/assets";
 
 type Props = {
+  name: string;
   inputRef?: LegacyRef<HTMLInputElement | HTMLTextAreaElement>;
   label?: string;
   placeholder: string;
   className?: string;
-  type?: "text" | "password" | "email" | "phone" | "textarea";
+  type?: "text" | "password" | "email" | "phone" | "textarea" | "number";
   error?: FieldError | undefined;
   inputValue?: string;
-  setInputValue?: UseFormSetValue<string>;
+  setInputValue?: (value: string) => void;
   min?: number;
   max?: number;
 };
 
 const Input: FC<Props> = ({
+  name,
   inputRef,
   className = "",
   label,
@@ -42,6 +44,14 @@ const Input: FC<Props> = ({
 
   const isTextarea = type === "textarea";
 
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const newValue = event.target.value;
+    setValue(newValue);
+    setInputValue(newValue);
+  };
+
   return (
     <div
       className={clsx("relative group flex flex-col w-full h-auto", className)}
@@ -55,7 +65,7 @@ const Input: FC<Props> = ({
           onClick={() => value && setPasswordShown((prevState) => !prevState)}
         >
           <EyeEmpty
-            className={clsx("hover:fill-main-dark", {
+            classNames={clsx("hover:fill-main-dark", {
               ["fill-main-dark"]: passwordShown,
             })}
           />
@@ -74,10 +84,7 @@ const Input: FC<Props> = ({
           )}
           placeholder={placeholder}
           value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-            setInputValue(event.target.value || "");
-          }}
+          onChange={handleInputChange}
         />
       ) : (
         <input
@@ -92,10 +99,7 @@ const Input: FC<Props> = ({
           )}
           value={value}
           type={inputType}
-          onChange={(event) => {
-            setValue(event.target.value);
-            setInputValue(event.target.value || "");
-          }}
+          onChange={handleInputChange}
           placeholder={placeholder}
           min={min}
           max={max}

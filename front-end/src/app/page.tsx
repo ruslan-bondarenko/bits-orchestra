@@ -1,5 +1,3 @@
-// pages/index.js or pages/index.tsx
-
 import React from "react";
 import axios from "axios";
 import { ProductList } from "@/widgets";

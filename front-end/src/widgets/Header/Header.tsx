@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Logo, Menu } from "@/shared/assets";
+import { Logo } from "@/shared/assets";
 import { NavBar } from "@/widgets";
 import {
   Button,

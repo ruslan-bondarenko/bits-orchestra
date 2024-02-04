@@ -8,14 +8,10 @@ import {
   FieldValues,
 } from "react-hook-form";
 
-import {
-  useAppDispatch,
-  useAppSelector,
-  addVisibleReviews,
-  useReviewsActions,
-} from "@/base/store";
+import { useReviewsActions } from "@/base/store";
 import { EMAIL_PATTERN, ERRORS_MESSAGES, DEFAULT_TEXT } from "@/shared/const";
 import { Input, Button, ButtonVariantEnum, Checkbox } from "@/shared/ui";
+import { IReview } from "@/shared";
 
 type FormValues = {
   message: string;
@@ -26,26 +22,18 @@ type FormValues = {
 };
 
 const ReviewForm: FC = () => {
-  const { reviewsData, visibleReviews } = useAppSelector(
-    (state) => state.reviews
-  );
-
   const { addReview } = useReviewsActions();
-
-  const label = DEFAULT_TEXT.inputLabel;
-  const placeholder = DEFAULT_TEXT.inputPlaceholder;
   const errorRequired = ERRORS_MESSAGES.required;
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
-  const { register, control, handleSubmit, reset, formState } =
-    useForm<FormValues>();
+  const { control, handleSubmit, reset, formState } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const newReview: IReview = {
-      id: Date.now(),
+      id: String(Date.now()),
       text: data.message,
       stars: data.rating,
-      date: Date.now(),
+      date: String(Date.now()),
       fullName: data.name,
       email: data.email,
       phone: data.phone,
@@ -70,6 +58,7 @@ const ReviewForm: FC = () => {
         <Controller
           render={({ field }) => (
             <Input
+              name="message"
               inputRef={field.ref}
               placeholder="Comment *"
               inputValue={field.value}
@@ -87,6 +76,7 @@ const ReviewForm: FC = () => {
           <Controller
             render={({ field }) => (
               <Input
+                name="name"
                 inputRef={field.ref}
                 placeholder="Name *"
                 inputValue={field.value}
@@ -102,6 +92,7 @@ const ReviewForm: FC = () => {
           <Controller
             render={({ field }) => (
               <Input
+                name="email"
                 inputRef={field.ref}
                 placeholder="Email *"
                 inputValue={field.value}
@@ -124,6 +115,7 @@ const ReviewForm: FC = () => {
         <Controller
           render={({ field }) => (
             <Input
+              name="phone"
               inputRef={field.ref}
               placeholder="Phone (optional)"
               inputValue={field.value}
@@ -138,10 +130,11 @@ const ReviewForm: FC = () => {
         <Controller
           render={({ field }) => (
             <Input
+              name="rating"
               className="!w-32"
               inputRef={field.ref}
               placeholder="Rate us *"
-              inputValue={field.value}
+              inputValue={String(field.value)}
               setInputValue={field.onChange}
               type="number"
               error={formState.errors.rating}

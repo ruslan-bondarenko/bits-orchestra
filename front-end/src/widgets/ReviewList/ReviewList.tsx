@@ -1,17 +1,12 @@
 "use client";
 import React, { FC } from "react";
 
-import {
-  useAppDispatch,
-  useAppSelector,
-  addVisibleReviews,
-  useReviewsActions,
-} from "@/base/store";
+import { useAppSelector, useReviewsActions } from "@/base/store";
 import { ReviewCard } from "@/widgets";
 import { Button, ButtonVariantEnum } from "@/shared/ui";
 import clsx from "clsx";
 
-const ReviewList = () => {
+const ReviewList: FC = () => {
   const { reviewsData, visibleReviews } = useAppSelector(
     (state) => state.reviews
   );

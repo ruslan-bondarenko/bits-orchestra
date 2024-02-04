@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -6,9 +6,9 @@ type Props = {
   className?: string;
 };
 
-import { useAppSelector, useHeaderActions } from "@/base/store";
+import { useHeaderActions } from "@/base/store";
 
-const NavBar = ({ className }) => {
+const NavBar: FC<Props> = ({ className }) => {
   const { closeMenu } = useHeaderActions();
 
   return (

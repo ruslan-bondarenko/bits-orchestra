@@ -15,11 +15,9 @@ export const headerSlice = createSlice({
   initialState,
   reducers: {
     openMenu: (state) => {
-      if (state.isAllProductsOpen) state.isAllProductsOpen = false;
       state.isMenuOpen = true;
     },
     toggleMenu: (state) => {
-      if (state.isAllProductsOpen) state.isAllProductsOpen = false;
       state.isMenuOpen = !state.isMenuOpen;
     },
     closeMenu: (state) => {

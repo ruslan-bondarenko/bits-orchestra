@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 
 type Props = {
   classNames?: string;
 };
 
-const EyeEmpty = ({ classNames }) => {
+const EyeEmpty: FC<Props> = ({ classNames }) => {
   return (
     <svg
       className={classNames}
