@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "json-server": "json-server --watch fake-api/db.json --port 3001"
+    "json-server": "json-server --watch fake-api/db.json --port 3001",
+    "build:wwwroot": "next build && cp -r .next/static/ ../../back-end/wwwroot"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
